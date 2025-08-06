@@ -2,6 +2,11 @@ import { useEffect, useRef } from 'react'
 import { useInfinitePokemon } from '../hooks/useInfinitePokemon'
 import PokemonCard from '../components/PokemonCard'
 
+export interface Pokemon {
+  name: string
+  url: string
+}
+
 const Discover = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfinitePokemon()
   const loaderRef = useRef<HTMLDivElement | null>(null)
@@ -29,7 +34,7 @@ const Discover = () => {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-6 p-4 w-full max-w-[1000px] place-items-center">
       {data?.pages
         .map(page =>
-          page.results.map(pokemon => (
+          page.results.map((pokemon: Pokemon) => (
             <PokemonCard key={pokemon.name} name={pokemon.name} url={pokemon.url} />
           ))
         )
